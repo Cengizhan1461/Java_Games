@@ -5,8 +5,8 @@ import org.newdawn.slick.tests.AnimationTest;
 
 public class Rectangles extends BasicGame {
 
-    private int x;
-    private int y;
+    private float x;
+    private float y;
 
 
     public Rectangles(String title) {
@@ -22,11 +22,11 @@ public class Rectangles extends BasicGame {
     }
 
     @Override
-    public void update(GameContainer gameContainer, int i) throws SlickException {
-        this.x++;
-        this.y++;
+    public void update(GameContainer gameContainer, int delta) throws SlickException {
+        this.x+= (float)delta/5.0;
+        this.y+= (float)delta/5.0;
 
-        if(this.x > 800){
+        if(this.x > 500){
             this.x = 0;
             this.y = 0;
         }
