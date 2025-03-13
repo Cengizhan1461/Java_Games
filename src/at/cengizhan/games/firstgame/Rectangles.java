@@ -5,45 +5,84 @@ import org.newdawn.slick.tests.AnimationTest;
 
 public class Rectangles extends BasicGame {
 
-    private float x;
-    private float y;
+    private float rectX, rectY;
+    private float ovaleX, ovaleY;
+    private float circleX, circleY;
+
+    private float ovaleSpeed = 0.5f;
+    private boolean ovaleMovingRight = true;
+
+    private float circleSpeed = 0.4f;
+    private boolean circleMovingDown = true;
+
+    private int direction = 1; // 1 right, 2 down, 3 left
 
 
     public Rectangles(String title) {
         super(title);
     }
 
-
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        this.x=100;
-        this.y=100;
-
+        rectX = 200;
+        rectY = 200;
+        circleX = 50;
+        circleY = 100;
+        ovaleX = 500;
+        ovaleY = 100;
     }
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
-        this.x+= (float)delta/5.0;
-        this.y+= (float)delta/5.0;
+        float move = ovaleSpeed * delta;
+        float circleMove = circleSpeed * delta;
+        float rectMove = 0.3f * delta;
 
-        if(this.x > 500){
-            this.x = 0;
-            this.y = 0;
+
+        if (ovaleMovingRight) {
+            ovaleX += move;
+            if (ovaleX >= 700) ovaleMovingRight = false;
+        } else {
+            ovaleX -= move;
+            if (ovaleX <= 40) ovaleMovingRight = true;
+        }
+
+        if (circleMovingDown) {
+            circleY += move;
+            if (circleY >= 500) circleMovingDown = false;
+        } else {
+            circleY -= move;
+            if (circleY <= 100) circleMovingDown = true;
+        }
+
+        if (direction == 1) {
+            rectX += rectMove;
+            if (rectX >= 500) direction = 2;
+        } else if (direction == 2) {
+            rectY += rectMove;
+            if (rectY >= 400) direction = 3;
+        } else if (direction == 3) {
+            rectX -= rectMove;
+            if (rectX <= 200) direction = 4;
+        } else if (direction == 4) {
+            rectY -= rectMove;
+            if (rectY <= 200) direction = 1;
         }
     }
 
+
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        graphics.drawRect(this.x,this.y,100,100);
-        graphics.drawString("Hello World", 50,50);
+        graphics.drawRect(rectX, rectY, 100, 100);
+        graphics.drawOval(ovaleX, ovaleY, 100, 50);
+        graphics.drawOval(circleX, circleY, 80, 80);
+        graphics.drawString("Hello Player!", 50, 50);
     }
-
-
 
     public static void main(String[] argv) {
         try {
             AppGameContainer container = new AppGameContainer(new Rectangles("Rectangles"));
-            container.setDisplayMode(800,600,false);
+            container.setDisplayMode(800, 600, false);
             container.start();
         } catch (SlickException e) {
             e.printStackTrace();
