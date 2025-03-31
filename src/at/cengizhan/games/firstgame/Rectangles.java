@@ -15,12 +15,12 @@ public class Rectangles {
     }
 
     public void render(Graphics graphics){
-        graphics.drawRect(this.x,this.y, 10, 10);
+        graphics.drawRect(this.x,this.y, 90, 10);
     }
 
     public void update(int delta){
         this.x += (float) delta/this.speed;
-        if(this.x > 800 ){
+        if(this.x > 1200 ){
             this.x = 0;
         }
     }
