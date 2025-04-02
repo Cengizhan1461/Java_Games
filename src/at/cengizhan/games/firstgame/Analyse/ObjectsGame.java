@@ -1,8 +1,12 @@
-package at.cengizhan.games.firstgame;
+package at.cengizhan.games.firstgame.Analyse;
 
 import org.newdawn.slick.*;
 
+import java.util.List;
+
 public class ObjectsGame extends BasicGame {
+    private List<Rectangles>rectangles;
+
     private Rectangles rectangle;
     private Rectangles rectangle2;
     private Rectangles rectangle3;

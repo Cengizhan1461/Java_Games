@@ -1,26 +1,26 @@
-package at.cengizhan.games.firstgame;
+package at.cengizhan.List;
 
 import org.newdawn.slick.Graphics;
 
-public class Rectangles {
+public class Rectangle {
     private enum DIRECTION {RIGHT, DOWN, LEFT, UP};
     private float x;
     private float y;
     private float speed;
 
-    public Rectangles(int x, int y, float speed) {
+    public Rectangle(int x, int y, float speed) {
         this.x = x;
         this.y = y;
         this.speed = speed;
     }
 
     public void render(Graphics graphics){
-        graphics.drawRect(this.x,this.y, 90, 10);
+        graphics.drawRect(this.x,this.y, 10, 10);
     }
 
     public void update(int delta){
         this.x += (float) delta/this.speed;
-        if(this.x > 1200 ){
+        if(this.x > 800 ){
             this.x = 0;
         }
     }
