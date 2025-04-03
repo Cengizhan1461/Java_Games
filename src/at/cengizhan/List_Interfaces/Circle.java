@@ -1,10 +1,10 @@
-package at.cengizhan.List;
+package at.cengizhan.List_Interfaces;
 
 import org.newdawn.slick.Graphics;
 
 import java.util.Random;
 
-public class Circle {
+public class Circle implements Actor {
     private enum DIRECTION {RIGHT, DOWN, LEFT, UP}
 
     ;

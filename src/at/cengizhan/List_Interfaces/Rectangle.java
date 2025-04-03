@@ -1,8 +1,8 @@
-package at.cengizhan.List;
+package at.cengizhan.List_Interfaces;
 
 import org.newdawn.slick.Graphics;
 
-public class Rectangle {
+public class Rectangle implements Actor {
     private enum DIRECTION {RIGHT, DOWN, LEFT, UP};
     private float x;
     private float y;

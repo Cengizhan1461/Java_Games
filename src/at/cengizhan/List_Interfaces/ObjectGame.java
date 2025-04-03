@@ -1,6 +1,5 @@
-package at.cengizhan.List;
+package at.cengizhan.List_Interfaces;
 
-import at.cengizhan.games.firstgame.Analyse.ObjectsGame;
 import org.newdawn.slick.*;
 
 import java.util.ArrayList;
@@ -8,8 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 public class ObjectGame extends BasicGame {
-    private List<Rectangle>rectangles;
-    private List<Circle> circles;
+    private List<Actor>actors;
+
 
 
     public ObjectGame(String title) {
@@ -19,41 +18,40 @@ public class ObjectGame extends BasicGame {
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        this.rectangles=new ArrayList<>();
-        this.circles = new ArrayList<>();
+        this.actors=new ArrayList<>();
         Random random = new Random();
 
         for (int i =0; i<100; i++){
             Rectangle rectangles1  = new Rectangle(random.nextInt(600), random.nextInt(600), random.nextInt(40));
-            rectangles.add(rectangles1);
+            this.actors.add(rectangles1);
         }
 
 
         for (int i = 0; i < 50; i++){
             Circle circle = new Circle();
-            this.circles.add(circle);
+            this.actors.add(circle);
         }
+
+        for (int i = 0; i < 50; i++){
+            Ellipse ellipse = new Ellipse(random.nextInt(800), random.nextInt(600));
+            this.actors.add(ellipse);
+        }
+
+
     }
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
-        for (Rectangle rectangles: this.rectangles){
-            rectangles.update(delta);
-        }
-
-        for (Circle circle: this.circles){
-            circle.update(delta);
+        for (Actor actors: this.actors){
+            actors.update(delta);
         }
     }
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        for (Rectangle rectangles: this.rectangles){
-            rectangles.render(graphics);
+        for (Actor actors: this.actors){
+            actors.render(graphics);
     }
-        for (Circle circle: this.circles){
-            circle.render(graphics);
-        }
 }
     public static void main(String[] argv) {
         try {
