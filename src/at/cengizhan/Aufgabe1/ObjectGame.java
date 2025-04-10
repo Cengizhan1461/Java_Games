@@ -51,6 +51,7 @@ public class ObjectGame extends BasicGame {
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
         for (Actor actors: this.actors){
             actors.render(graphics);
+
     }
 }
     public static void main(String[] argv) {
