@@ -37,6 +37,9 @@ public class ObjectGame extends BasicGame {
             this.actors.add(ellipse);
         }
 
+        Rocket rocket = new Rocket();
+        this.actors.add(rocket);
+
 
     }
 
