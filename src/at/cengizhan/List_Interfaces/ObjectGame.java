@@ -43,10 +43,17 @@ public class ObjectGame extends BasicGame {
 
     }
 
+
+    @Override
+    public void keyPressed(int key, char c) {
+        super.keyPressed(key, c);
+        System.out.println(key);
+    }
+
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
         for (Actor actors: this.actors){
-            actors.update(delta);
+            actors.update(gameContainer, delta);
         }
     }
 

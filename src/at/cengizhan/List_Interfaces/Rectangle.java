@@ -1,5 +1,6 @@
 package at.cengizhan.List_Interfaces;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public class Rectangle implements Actor {
@@ -18,7 +19,7 @@ public class Rectangle implements Actor {
         graphics.drawRect(this.x,this.y, 10, 10);
     }
 
-    public void update(int delta){
+    public void update(GameContainer gameContainer, int delta){
         this.x += (float) delta/this.speed;
         if(this.x > 800 ){
             this.x = 0;
