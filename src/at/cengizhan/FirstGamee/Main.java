@@ -3,8 +3,11 @@ package at.cengizhan.FirstGamee;
 import org.newdawn.slick.*;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends BasicGame {
+    private List<Actor>actors;
 
     private Player Mario;
 
@@ -15,7 +18,9 @@ public class Main extends BasicGame {
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-
+        this.actors=new ArrayList<>();
+        Player mario = new Player();
+        this.actors.add(mario);
     }
 
     @Override
@@ -35,6 +40,10 @@ public class Main extends BasicGame {
         // Boden
         graphics.setColor(new Color(34, 139, 34));
         graphics.fillRect(0, 500, 800, 100);
+
+        for (Actor actor : actors) {
+            actor.render(graphics);  // Actor rendern
+        }
 
     }
 

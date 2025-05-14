@@ -8,7 +8,7 @@ public class Rocket implements Actor {
     private float x,y;
 
     public Rocket() throws SlickException {
-        this.rocketImage = new Image("testdata/Raket");
+        this.rocketImage = new Image("testdata/Rocket.jpg");
         this.x = 100;
         this.y = 100;
     }
