@@ -3,36 +3,52 @@ package at.cengizhan.FirstGamee;
 import org.newdawn.slick.*;
 
 public class Player implements Actor {
-    private Image Mario;
+    private Image yoshiImage;
     private float x, y;
     private float speed;
 
-    public Player() throws SlickException{
-        this.Mario = new Image("testdata/");
-        this.x = 160;
-        this.y = 160;
-    }
+    private float velocityY = 0f; // vertikale Geschwindigkeit
+    private final float gravity = 0.0015f; // Gravitation
+    private final float jumpStrength = -0.5f;
+    private final float groundY = 370f;
 
-    @Override
-    public void render(Graphics graphics) {
-        Mario.draw(0,320);
+    public Player() throws SlickException {
+        this.yoshiImage = new Image("testdata/yoshi.png");
+        this.x = 10;
+        this.y = groundY;
+        this.speed = 0.3f;
     }
 
     @Override
     public void update(GameContainer gameContainer, int delta) {
-        if (gameContainer.getInput().isKeyDown(Input.KEY_RIGHT)){
-            this.x++;
-        }
-        if (gameContainer.getInput().isKeyDown(Input.KEY_DOWN)){
-            this.y--;
+        Input input = gameContainer.getInput();
+
+        // Horizontale Bewegung
+        if (input.isKeyDown(Input.KEY_RIGHT)) x += speed * delta;
+        if (input.isKeyDown(Input.KEY_LEFT)) x -= speed * delta;
+
+        // Springen nur wenn auf dem Boden
+        if (input.isKeyPressed(Input.KEY_UP) && onGround()) {
+            velocityY = jumpStrength;
         }
 
-        if (gameContainer.getInput().isKeyDown(Input.KEY_LEFT)){
-            this.x--;
-        }
+        // Gravitation anwenden
+        velocityY += gravity * delta;
+        y += velocityY * delta;
 
-        if (gameContainer.getInput().isKeyDown(Input.KEY_UP)){
-            this.y++;
+        // Unten auf dem Boden stoppen
+        if (y >= groundY) {
+            y = groundY;
+            velocityY = 0;
         }
+    }
+
+    private boolean onGround() {
+        return y >= groundY;
+    }
+
+    @Override
+    public void render(Graphics graphics) {
+        yoshiImage.draw(x, y, 150, 150);
     }
 }

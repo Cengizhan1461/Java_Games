@@ -24,12 +24,16 @@ public class Main extends BasicGame {
     }
 
     @Override
-    public void update(GameContainer gameContainer, int i) throws SlickException {
+    public void update(GameContainer gameContainer, int delta) throws SlickException {
+        for (Actor actor : actors) {
+            actor.update(gameContainer, delta);
+        }
 
     }
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
+
 
 
         // Himmel
