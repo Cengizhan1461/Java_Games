@@ -3,52 +3,56 @@ package at.cengizhan.FirstGamee;
 import org.newdawn.slick.*;
 
 public class Player implements Actor {
-    private Image yoshiImage;
+    private Image Mario;
     private float x, y;
-    private float speed;
-
-    private float velocityY = 0f; // vertikale Geschwindigkeit
-    private final float gravity = 0.0015f; // Gravitation
-    private final float jumpStrength = -0.5f;
-    private final float groundY = 370f;
+    private float velocityY = 0;  // Vertikale Geschwindigkeit
+    private boolean onGround = true;  // Ist Yoshi am Boden?
+    private final float gravity = 0.001f;  // Schwerkraft
+    private final float jumpStrength = -0.4f;  // Wie stark springt Yoshi
 
     public Player() throws SlickException {
-        this.yoshiImage = new Image("testdata/yoshi.png");
-        this.x = 10;
-        this.y = groundY;
-        this.speed = 0.3f;
+        this.Mario = new Image("testdata/yoshi.png");
+        this.x = 0;
+        this.y = 400;  // Startposition leicht über dem Boden
+    }
+
+    @Override
+    public void render(Graphics graphics) {
+        Mario.draw(x, y, 100, 100);
     }
 
     @Override
     public void update(GameContainer gameContainer, int delta) {
         Input input = gameContainer.getInput();
 
-        // Horizontale Bewegung
-        if (input.isKeyDown(Input.KEY_RIGHT)) x += speed * delta;
-        if (input.isKeyDown(Input.KEY_LEFT)) x -= speed * delta;
+        // Links/rechts bewegen
+        if (input.isKeyDown(Input.KEY_RIGHT)) x += 0.2f * delta;
+        if (input.isKeyDown(Input.KEY_LEFT)) x -= 0.2f * delta;
 
-        // Springen nur wenn auf dem Boden
-        if (input.isKeyPressed(Input.KEY_UP) && onGround()) {
+        // Springen
+        if (input.isKeyPressed(Input.KEY_UP) && onGround) {
             velocityY = jumpStrength;
+            onGround = false;
         }
 
-        // Gravitation anwenden
+        // Schwerkraft anwenden
         velocityY += gravity * delta;
         y += velocityY * delta;
 
-        // Unten auf dem Boden stoppen
-        if (y >= groundY) {
-            y = groundY;
+        // Boden-Kollision
+        if (y >= 400) {
+            y = 400;
             velocityY = 0;
+            onGround = true;
         }
+
+        // Bildschirmgrenzen
+        if (x < 0) x = 0;
+        if (x > 700) x = 700;
     }
 
-    private boolean onGround() {
-        return y >= groundY;
-    }
-
-    @Override
-    public void render(Graphics graphics) {
-        yoshiImage.draw(x, y, 150, 150);
-    }
+    public float getX() { return x; }
+    public float getY() { return y; }
+    public float getWidth() { return 100; }
+    public float getHeight() { return 100; }
 }
